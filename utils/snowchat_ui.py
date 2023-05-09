@@ -72,10 +72,7 @@ def extract_code(text) -> str:
     # stream=True
     )
 
-    # Extract the SQL code from the response
-    sql_code = response.choices[0].message.content
-
-    return sql_code
+    return response.choices[0].message.content
 
 def is_sql_query(text: str) -> bool:
     """
@@ -95,7 +92,4 @@ def is_sql_query(text: str) -> bool:
     pattern = r'\b(?:' + '|'.join(keywords) + r')\b'
 
     # Check if any of the keywords are present in the input text (case-insensitive)
-    if re.search(pattern, text, re.IGNORECASE):
-        return True
-
-    return False
+    return bool(re.search(pattern, text, re.IGNORECASE))
